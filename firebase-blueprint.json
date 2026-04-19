@@ -1,0 +1,171 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User account information and roles",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "entry", "viewer"] },
+        "assignedLine": { "type": "string" },
+        "isActive": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role", "isActive", "createdAt"]
+    },
+    "DhuReport": {
+      "title": "DhuReport",
+      "description": "Defects per Hundred Units report",
+      "type": "object",
+      "properties": {
+        "date": { "type": "string" },
+        "hourSlot": { "type": "string" },
+        "section": { "type": "string" },
+        "floor": { "type": "string" },
+        "line": { "type": "string" },
+        "buyer": { "type": "string" },
+        "style": { "type": "string" },
+        "color": { "type": "string" },
+        "totalReceiveQty": { "type": "number" },
+        "totalCheckQty": { "type": "number" },
+        "qcPassQty": { "type": "number" },
+        "defectiveQty": { "type": "number" },
+        "rectifyQty": { "type": "number" },
+        "defects": { "type": "array" },
+        "totalDefects": { "type": "number" },
+        "dhuPercent": { "type": "number" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["date", "section", "floor", "line", "totalCheckQty", "qcPassQty", "createdBy", "createdAt"]
+    },
+    "RftReport": {
+      "title": "RftReport",
+      "description": "Right First Time report",
+      "type": "object",
+      "properties": {
+        "date": { "type": "string" },
+        "section": { "type": "string" },
+        "floor": { "type": "string" },
+        "line": { "type": "string" },
+        "buyer": { "type": "string" },
+        "style": { "type": "string" },
+        "color": { "type": "string" },
+        "outputQty": { "type": "number" },
+        "checkQty": { "type": "number" },
+        "qcPassQty": { "type": "number" },
+        "defectiveQty": { "type": "number" },
+        "rectifyQty": { "type": "number" },
+        "rftPercent": { "type": "number" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["date", "section", "floor", "line", "checkQty", "qcPassQty", "createdBy", "createdAt"]
+    },
+    "NeedlePointAnalysis": {
+      "title": "NeedlePointAnalysis",
+      "description": "Critical process analysis report",
+      "type": "object",
+      "properties": {
+        "date": { "type": "string" },
+        "section": { "type": "string" },
+        "floor": { "type": "string" },
+        "line": { "type": "string" },
+        "buyer": { "type": "string" },
+        "style": { "type": "string" },
+        "color": { "type": "string" },
+        "totalCheckQty": { "type": "number" },
+        "totalDefectQty": { "type": "number" },
+        "rftPercent": { "type": "number" },
+        "analysisName": { "type": "string" },
+        "processes": { "type": "array" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["date", "section", "floor", "line", "totalCheckQty", "totalDefectQty", "createdBy", "createdAt"]
+    },
+    "CuttingReport": {
+      "title": "CuttingReport",
+      "description": "Cutting section dhu report",
+      "type": "object",
+      "properties": {
+        "date": { "type": "string" },
+        "floor": { "type": "string" },
+        "line": { "type": "string" },
+        "buyer": { "type": "string" },
+        "style": { "type": "string" },
+        "color": { "type": "string" },
+        "checkQty": { "type": "number" },
+        "defectiveQty": { "type": "number" },
+        "defects": { "type": "array" },
+        "totalDefects": { "type": "number" },
+        "dhuPercent": { "type": "number" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["date", "floor", "line", "checkQty", "totalDefects", "createdBy", "createdAt"]
+    },
+    "DayFinalReport": {
+      "title": "DayFinalReport",
+      "description": "Daily audit final summary",
+      "type": "object",
+      "properties": {
+        "date": { "type": "string" },
+        "section": { "type": "string" },
+        "floor": { "type": "string" },
+        "line": { "type": "string" },
+        "buyer": { "type": "string" },
+        "style": { "type": "string" },
+        "color": { "type": "string" },
+        "totalQcPassQty": { "type": "number" },
+        "checkQty20": { "type": "number" },
+        "status": { "type": "string", "enum": ["Pass", "Fail"] },
+        "findings": { "type": "string" },
+        "remark": { "type": "string" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["date", "section", "floor", "line", "totalQcPassQty", "status", "createdBy", "createdAt"]
+    },
+    "UserSettings": {
+      "title": "UserSettings",
+      "description": "User preferences and defaults",
+      "type": "object",
+      "properties": {
+        "lastLine": { "type": "string" },
+        "lastFloor": { "type": "string" }
+      }
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profiles and roles"
+    },
+    "/dhuReports/{reportId}": {
+      "schema": "DhuReport",
+      "description": "DHU quality inspection reports"
+    },
+    "/rftReports/{reportId}": {
+      "schema": "RftReport",
+      "description": "RFT quality inspection reports"
+    },
+    "/needlePointAnalyses/{analysisId}": {
+      "schema": "NeedlePointAnalysis",
+      "description": "Needle point analysis reports"
+    },
+    "/dayFinalReports/{reportId}": {
+      "schema": "DayFinalReport",
+      "description": "Day final summary reports"
+    },
+    "/cuttingReports/{reportId}": {
+      "schema": "CuttingReport",
+      "description": "Cutting quality reports"
+    },
+    "/userSettings/{userId}": {
+      "schema": "UserSettings",
+      "description": "Personalized user settings"
+    }
+  }
+}
